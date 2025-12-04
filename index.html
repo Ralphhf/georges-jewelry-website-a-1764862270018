@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>George's Jewelry - Where Every Piece Tells Your Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --gold: #d4af37;
+            --gold-light: #f4e4b1;
+            --white: #ffffff;
+            --gray: #888888;
+            --dark-gray: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1613945408510-0be25b4ebe40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHw1N3x8bHV4dXJ5JTIwZGlhbW9uZCUyMGpld2VscnklMjBkYXJrJTIwYmFja2dyb3VuZCUyMGVsZWdhbnR8ZW58MHwwfHx8MTc2NDg2MTA5Nnww&ixlib=rb-4.1.0&q=80&w=1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 1rem;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background-color: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            border: 2px solid var(--gold);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--gold);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .section-title.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--dark-gray);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .about-content.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--white);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .stat:hover {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .stat:hover .stat-number {
+            color: var(--black);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background-color: var(--dark-gray);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-card.animate {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background-color: var(--dark-gray);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .gallery-item.animate {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .photo-credits {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background-color: var(--dark-gray);
+            padding: 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .testimonial.animate {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--white);
+        }
+
+        .testimonial-author {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--dark-gray);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            color: var(--gold);
+            font-size: 1.2rem;
+            width: 30px;
+        }
+
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+        }
+
+        /* Form Styles */
+        #contactForm {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        #contactForm input,
+        #contactForm textarea {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--white);
+            padding: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        #contactForm input:focus,
+        #contactForm textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #contactForm button {
+            background-color: var(--gold);
+            color: var(--black);
+            padding: 1rem 2rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #contactForm button:hover {
+            background-color: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        #contactForm button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #formStatus {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Icons placeholder - using text symbols */
+        .icon {
+            display: inline-block;
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background-color: var(--black);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">George's Jewelry</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>George's Jewelry</h1>
+            <p class="tagline">Where Every Piece Tells Your Story</p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">About Our Craft</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>For two decades, George's Jewelry has been the trusted name in New Brunswick for exquisite craftsmanship and personalized service. Our passion for creating timeless pieces that capture life's most precious moments has made us the premier destination for discerning jewelry lovers.</p>
+                <p>From custom engagement rings that symbolize eternal love to restoration of cherished family heirlooms, every piece that passes through our hands receives meticulous attention and care. We believe that jewelry is more than just an accessory—it's a story, a memory, and a legacy.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">20</span>
+                        Years of Excellence
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5000+</span>
+                        Happy Customers
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        Satisfaction Guaranteed
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        Customer Support
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card" style="--index: 0;">
+                <div class="service-icon">💍</div>
+                <h3>Custom Engagement Ring Design</h3>
+                <p>Create the perfect symbol of your love with our bespoke ring design service. Work directly with our master craftsmen to bring your vision to life.</p>
+            </div>
+            <div class="service-card" style="--index: 1;">
+                <div class="service-icon">🔧</div>
+                <h3>Jewelry Repair & Restoration</h3>
+                <p>Breathe new life into your precious pieces. Our expert technicians restore jewelry to its original brilliance with precision and care.</p>
+            </div>
+            <div class="service-card" style="--index: 2;">
+                <div class="service-icon">⌚</div>
+                <h3>Watch Battery Replacement & Repair</h3>
+                <p>Keep your timepieces running perfectly with our professional watch services. From battery replacements to complex repairs.</p>
+            </div>
+            <div class="service-card" style="--index: 3;">
+                <div class="service-icon">📿</div>
+                <h3>Pearl Restringing</h3>
+                <p>Preserve your pearl jewelry with our professional restringing service. We use the finest materials to ensure lasting beauty and durability.</p>
+            </div>
+            <div class="service-card" style="--index: 4;">
+                <div class="service-icon">📋</div>
+                <h3>Jewelry Appraisals & Insurance</h3>
+                <p>Protect your investments with certified appraisals. Our detailed documentation ensures proper insurance coverage for your valuable pieces.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <h2 class="section-title">Our Finest Work</h2>
+        <div class="gallery">
+            <div class="gallery-item" style="--index: 0;">
+                <img src="https://images.unsplash.com/photo-1613945408026-6732d875e701?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHwxNXx8ZGlhbW9uZCUyMGVuZ2FnZW1lbnQlMjByaW5nJTIwY2xvc2V1cCUyMGJva2VofGVufDB8MHx8fDE3NjQ4NjEwOTd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Diamond Engagement Ring">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Custom Diamond Engagement Ring</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="--index: 1;">
+                <img src="https://images.unsplash.com/photo-1725033796942-bd6100a5b838?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHw0fHxnb2xkJTIwbmVja2xhY2UlMjBqZXdlbHJ5JTIwcGhvdG9ncmFwaHl8ZW58MHwwfHx8MTc2NDgyNTUzN3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Gold Necklace">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Handcrafted Gold Necklace</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="--index: 2;">
+                <img src="https://images.unsplash.com/photo-1669623254608-47728bbdca33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHwxMzB8fGx1eHVyeSUyMHdhdGNoJTIwdGltZXBpZWNlfGVufDB8MHx8fDE3NjQ4NjIxMTB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Luxury Watch">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Restored Vintage Timepiece</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="--index: 3;">
+                <img src="https://images.unsplash.com/photo-1599029576074-2f79b6c25401?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHwxMTZ8fHBlYXJsJTIwZWFycmluZ3MlMjBlbGVnYW50fGVufDB8MHx8fDE3NjQ4NjEwOTl8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Pearl Earrings">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Elegant Pearl Earrings</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="--index: 4;">
+                <img src="https://images.unsplash.com/photo-1603561596973-8166e9e089d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHwxNHx8Z2Vtc3RvbmUlMjByaW5nJTIwc2FwcGhpcmUlMjBydWJ5fGVufDB8MHx8fDE3NjQ4NjIxMTB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Gemstone Ring">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Sapphire & Ruby Collection</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="--index: 5;">
+                <img src="https://images.unsplash.com/photo-1674329042475-de1a95b4ca62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MzgyMjB8MHwxfHNlYXJjaHwxMDd8fGpld2VscnklMjBkaXNwbGF5JTIwdmVsdmV0JTIwbHV4dXJ5fGVufDB8MHx8fDE3NjQ4MjU1NDB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Jewelry Display">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Luxury Jewelry Collection</p>
+                </div>
+            </div>
+        </div>
+        <p class="photo-credits">Photo credits: Sabrianna, Carmen Roman, Kent Lâm, Jonathan Borba, Nadiia Shevchenko</p>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial" style="--index: 0;">
+                <p>George helped design my engagement ring and it exceeded all my expectations! He really listened to what I wanted and suggested details I never would have thought of. The craftsmanship is absolutely stunning.</p>
+                <div class="testimonial-author">- Maria Rodriguez</div>
+            </div>
+            <div class="testimonial" style="--index: 1;">
+                <p>Been going here for years. Fixed my grandfather's pocket watch when two other places said it couldn't be done. Fair prices and they actually care about their work.</p>
+                <div class="testimonial-author">- David Chen</div>
+            </div>
+            <div class="testimonial" style="--index: 2;">
+                <p>I needed my mother's vintage bracelet repaired for her 70th birthday and they had it looking brand new in just 3 days! George and his team are so knowledgeable and trustworthy. Won't go anywhere else.</p>
+                <div class="testimonial-author">- Jennifer Williams</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Visit Our Store</h3>
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <span>118 French St, New Brunswick, NJ 08901, USA</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <a href="tel:6317108938">631-710-8938</a>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <a href="mailto:ralph_farah_2001@hotmail.com">ralph_farah_2001@hotmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">🕐</span>
+                    <span>Mon-Sat: 10AM - 7PM</span>
+                </div>
+            </div>
+            <div>
+                <form id="contactForm">
+                    <input type="hidden" name="websiteId" value="080b8159e337131f522b233378831943">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="tel" name="phone" placeholder="Phone">
+                    <textarea name="message" placeholder="Message" required rows="5"></textarea>
+                    <button type="submit">Send</button>
+                    <div id="formStatus"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2024 George's Jewelry. All rights reserved. | Where Every Piece Tells Your Story</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.section-title, .about-content, .service-card, .gallery-item, .testimonial').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const b = e.target.querySelector('button');
+            b.disabled = true;
+            b.textContent = 'Sending...';
+            try {
+                const r = await fetch('https://no-website-finder.onrender.com/api/form-submit', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        websiteId: e.target.querySelector('[name=websiteId]').value,
+                        name: e.target.querySelector('[name=name]').value,
+                        email: e.target.querySelector('[name=email]').value,
+                        phone: e.target.querySelector('[name=phone]').value,
+                        message: e.target.querySelector('[name=message]').value
+                    })
+                });
+                const d = await r.json();
+                document.getElementById('formStatus').textContent = d.success ? '✓ Sent!' : '✗ Error';
+                document.getElementById('formStatus').style.color = d.success ? '#22c55e' : '#ef4444';
+                if (d.success) {
+                    e.target.reset();
+                }
+            } catch(err) {
+                document.getElementById('formStatus').textContent = '✗ Failed';
+                document.getElementById('formStatus').style.color = '#ef4444';
+            }
+            b.disabled = false;
+            b.textContent = 'Send';
+        });
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            if (currentScroll > 50) {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
+                nav.style.padding = '0.75rem 5%';
+            } else {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+                nav.style.padding = '1rem 5%';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
